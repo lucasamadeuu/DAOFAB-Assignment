@@ -74,6 +74,6 @@ public class ParentResponse implements Comparable<ParentResponse>{
 
     @Override
     public int compareTo(ParentResponse o) {
-        return 0;
+        return this.getId().compareTo(o.getId());
     }
 }

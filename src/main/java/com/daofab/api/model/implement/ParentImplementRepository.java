@@ -24,8 +24,6 @@ public class ParentImplementRepository implements ParentRepository {
     public Set<ParentResponse> getParentTransactions(int page, int size) {
         Set<ParentResponse> parentTransactionList = new TreeSet<>();
 
-        System.out.println(size);
-
         try {
             for(Parent parentTransaction : transactionDao.getParentTransactions(page, size)) {
                 parentTransactionList.add(
