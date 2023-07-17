@@ -1,15 +1,13 @@
 package com.daofab.api.controller;
 
 import com.daofab.api.model.ParentRepository;
+import com.daofab.api.response.ChildResponse;
 import com.daofab.api.response.ParentResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
@@ -28,9 +26,17 @@ public class TransactionController {
         if(size == null)
             size = 2; //Default page size
 
+        //Responsible for getting the Parent data with page and size filter
         Set<ParentResponse> parentTransactions = parentRepository.getParentTransactions(page, size);
 
         return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON).body(parentTransactions);
+    }
+
+    @GetMapping("/child-transactions/{parentId}")
+    public ResponseEntity<Set<ChildResponse>> getChildTransactions(@PathVariable("parentId") long parentId){
+        Set<ChildResponse> childTransactions = parentRepository.getChildTransactions(parentId);
+
+        return ResponseEntity.status(HttpStatus.OK).contentType(MediaType.APPLICATION_JSON).body(childTransactions);
     }
 
 }
